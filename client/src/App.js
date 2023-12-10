@@ -8,7 +8,7 @@ function App() {
       console.log(response.data);
     });
   });
-  return <div className="App">Hello World</div>;
+  return <div className="App">Hello World!</div>;
 }
 
 export default App;

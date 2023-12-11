@@ -13,6 +13,9 @@ const db = require("./models");
 const postRouter = require("./routes/Posts");
 app.use("/posts", postRouter);
 
+const commentsRouter = require("./routes/Comments");
+app.use("/comments", commentsRouter);
+
 db.sequelize.sync().then(() => {
   app.get("/", (req, res) => {
     res.json("Hello World!");

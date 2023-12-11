@@ -3,9 +3,11 @@ import "./CreatePost.css";
 import axios from "axios";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
   const initialValues = { title: "", postText: "", username: "" };
+  const navigate = useNavigate();
   const validationSchema = Yup.object().shape({
     title: Yup.string().required(),
     postText: Yup.string().required(),
@@ -15,6 +17,7 @@ const CreatePost = () => {
   const onSubmit = (data) => {
     axios.post("http://localhost:3001/posts", data).then((response) => {
       console.log("Added to database!");
+      navigate("/");
     });
   };
   return (

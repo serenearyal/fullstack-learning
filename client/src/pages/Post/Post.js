@@ -21,13 +21,25 @@ const Post = () => {
 
   const addComment = () => {
     axios
-      .post("http://localhost:3001/comments", {
-        commentBody: newComment,
-        PostId: id,
-      })
+      .post(
+        "http://localhost:3001/comments",
+        {
+          commentBody: newComment,
+          PostId: id,
+        },
+        {
+          headers: {
+            accessToken: sessionStorage.getItem("accessToken"),
+          },
+        }
+      )
       .then((response) => {
-        setComments([...comments, { commentBody: newComment }]);
-        setNewComment("");
+        if (response.data.error) {
+          alert(response.data.error);
+        } else {
+          setComments([...comments, { commentBody: newComment }]);
+          setNewComment("");
+        }
       });
   };
 

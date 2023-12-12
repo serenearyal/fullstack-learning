@@ -7,6 +7,7 @@ const Post = () => {
   let { id } = useParams();
   const [postObject, setPostObject] = useState({});
   const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
 
   useEffect(() => {
     axios.get(`http://localhost:3001/posts/byId/${id}`).then((response) => {
@@ -18,6 +19,18 @@ const Post = () => {
     });
   }, []);
 
+  const addComment = () => {
+    axios
+      .post("http://localhost:3001/comments", {
+        commentBody: newComment,
+        PostId: id,
+      })
+      .then((response) => {
+        setComments([...comments, { commentBody: newComment }]);
+        setNewComment("");
+      });
+  };
+
   return (
     <div className="Post">
       <div className="leftSide">
@@ -27,8 +40,15 @@ const Post = () => {
       </div>
       <div className="rightSide">
         <div className="addComment">
-          <input type="text" placeholder="Write your comment..."></input>
-          <button>Add Comment</button>
+          <input
+            type="text"
+            placeholder="Write your comment..."
+            value={newComment}
+            onChange={(event) => {
+              setNewComment(event.target.value);
+            }}
+          ></input>
+          <button onClick={addComment}>Add Comment</button>
         </div>
 
         <div className="listOfComments">

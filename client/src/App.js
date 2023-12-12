@@ -10,6 +10,8 @@ function App() {
       <Router>
         <Link to="/">Homepage</Link>
         <Link to="/createpost">Create a Post</Link>
+        <Link to="/login">Create a Post</Link>
+        <Link to="/registration">Create a Post</Link>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/createpost" element={<CreatePost />} />

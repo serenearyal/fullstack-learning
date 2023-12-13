@@ -12,7 +12,7 @@ const Home = () => {
     axios.get("http://localhost:3001/posts").then((response) => {
       setListsOfPosts(response.data);
     });
-  });
+  }, []);
   return (
     <div className="Home">
       {listOfPosts.map((value, key) => {

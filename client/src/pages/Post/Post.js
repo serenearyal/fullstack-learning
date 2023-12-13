@@ -29,7 +29,7 @@ const Post = () => {
         },
         {
           headers: {
-            accessToken: sessionStorage.getItem("accessToken"),
+            accessToken: localStorage.getItem("accessToken"),
           },
         }
       )
@@ -37,7 +37,10 @@ const Post = () => {
         if (response.data.error) {
           alert(response.data.error);
         } else {
-          setComments([...comments, { commentBody: newComment }]);
+          setComments([
+            ...comments,
+            { commentBody: newComment, username: response.data.username },
+          ]);
           setNewComment("");
         }
       });
@@ -65,7 +68,12 @@ const Post = () => {
 
         <div className="listOfComments">
           {comments.map((comment, key) => {
-            return <div key={key}>{comment.commentBody}</div>;
+            return (
+              <div key={key}>
+                {comment.commentBody}
+                <label>{" : " + comment.username}</label>
+              </div>
+            );
           })}
         </div>
       </div>

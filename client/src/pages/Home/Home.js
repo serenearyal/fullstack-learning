@@ -18,7 +18,22 @@ const Home = () => {
         }
       )
       .then((response) => {
-        console.log(response.data);
+        setListsOfPosts(
+          listOfPosts.map((post) => {
+            if (post.id === postId) {
+              if (response.data.liked) {
+                return { ...post, Likes: [...post.Likes, 0] };
+              } else {
+                const likeArray = post.Likes;
+                likeArray.pop();
+                return { ...post, Likes: likeArray };
+              }
+              // modifying to refresh like counter without refreshing the whole page
+            } else {
+              return post;
+            }
+          })
+        );
       });
   };
 
@@ -50,6 +65,7 @@ const Home = () => {
               >
                 Like
               </button>
+              <label>{value.Likes.length}</label>
             </div>
           </div>
         );

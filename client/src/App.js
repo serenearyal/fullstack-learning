@@ -11,7 +11,7 @@ import axios from "axios";
 
 function App() {
   const [authState, setAuthState] = useState({
-    username: "id",
+    username: "",
     id: 0,
     status: false,
   });

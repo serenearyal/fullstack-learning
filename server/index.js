@@ -19,6 +19,9 @@ app.use("/comments", commentsRouter);
 const usersRouter = require("./routes/Users");
 app.use("/auth", usersRouter);
 
+const likesRouter = require("./routes/Likes");
+app.use("/likes", likesRouter);
+
 db.sequelize.sync().then(() => {
   app.get("/", (req, res) => {
     res.json("Hello World!");

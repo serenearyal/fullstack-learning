@@ -10,7 +10,16 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function App() {
-  const [authState, setAuthState] = useState(false);
+  const [authState, setAuthState] = useState({
+    username: "id",
+    id: 0,
+    status: false,
+  });
+
+  const logout = () => {
+    localStorage.removeItem("accessToken");
+    setAuthState({ username: "", id: 0, status: false });
+  };
 
   useEffect(() => {
     axios
@@ -19,9 +28,13 @@ function App() {
       })
       .then((response) => {
         if (response.data.error) {
-          setAuthState(false);
+          setAuthState({ ...authState, status: false });
         } else {
-          setAuthState(true);
+          setAuthState({
+            username: response.data.username,
+            id: response.data.id,
+            status: true,
+          });
         }
       });
   }, []);
@@ -31,12 +44,15 @@ function App() {
         <Router>
           <Link to="/">Homepage</Link>
           <Link to="/createpost">Create a Post</Link>
-          {!authState && (
+          {!authState.status ? (
             <>
               <Link to="/login">Login</Link>
               <Link to="/registration">Registration</Link>
             </>
+          ) : (
+            <button onClick={logout}>Logout</button>
           )}
+          <h4>{authState.username}</h4>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/createpost" element={<CreatePost />} />

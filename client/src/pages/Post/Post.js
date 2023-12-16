@@ -88,7 +88,7 @@ const Post = () => {
               <div key={key}>
                 {comment.commentBody}
                 <label>{" : " + comment.username}</label>
-                {authState.username === comment.username && (
+                {/* {authState.username === comment.username && (
                   <button
                     onClick={() => {
                       deleteComment(comment.id);
@@ -96,7 +96,7 @@ const Post = () => {
                   >
                     X
                   </button>
-                )}
+                )} */}
               </div>
             );
           })}

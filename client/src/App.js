@@ -8,8 +8,9 @@ import { AuthContext } from "./helpers/AuthContext";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
+import "./index.css";
 
-function App() {
+export default function App() {
   const [authState, setAuthState] = useState({
     username: "",
     id: 0,
@@ -39,20 +40,24 @@ function App() {
       });
   }, []);
   return (
-    <div className="App">
+    <div className="bg-gray-700">
       <AuthContext.Provider value={{ authState, setAuthState }}>
         <Router>
-          <Link to="/">Homepage</Link>
-          <Link to="/createpost">Create a Post</Link>
-          {!authState.status ? (
-            <>
-              <Link to="/login">Login</Link>
-              <Link to="/registration">Registration</Link>
-            </>
-          ) : (
-            <button onClick={logout}>Logout</button>
-          )}
-          <h4>{authState.username}</h4>
+          <div className="flex gap-4 p-4 text-white">
+            <Link className="text-green-900" to="/">
+              Homepage
+            </Link>
+            <Link to="/createpost">Create a Post</Link>
+            {!authState.status ? (
+              <>
+                <Link to="/login">Login</Link>
+                <Link to="/registration">Registration</Link>
+              </>
+            ) : (
+              <button onClick={logout}>Logout</button>
+            )}
+            <h4>{authState.username}</h4>
+          </div>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/createpost" element={<CreatePost />} />
@@ -66,5 +71,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

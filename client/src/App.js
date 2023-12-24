@@ -40,24 +40,42 @@ export default function App() {
       });
   }, []);
   return (
-    <div className="bg-gray-700">
+    <div className="bg-gray-900">
       <AuthContext.Provider value={{ authState, setAuthState }}>
         <Router>
-          <div className="flex gap-4 p-4 text-white">
-            <Link className="text-green-900" to="/">
-              Homepage
-            </Link>
-            <Link to="/createpost">Create a Post</Link>
-            {!authState.status ? (
-              <>
-                <Link to="/login">Login</Link>
-                <Link to="/registration">Registration</Link>
-              </>
-            ) : (
-              <button onClick={logout}>Logout</button>
-            )}
-            <h4>{authState.username}</h4>
-          </div>
+          <nav className="flex justify-between bg-gray-900">
+            <div className="p-4">
+              <Link
+                className="font-serif font-extrabold text-3xl italic text-purple-400 "
+                to="/"
+              >
+                DUMP
+              </Link>
+            </div>
+            <div className="flex gap-4 p-4 text-white">
+              <Link className="btn-primary" to="/">
+                Homepage
+              </Link>
+              <Link className="btn-primary" to="/createpost">
+                Create a Post
+              </Link>
+              {!authState.status ? (
+                <>
+                  <Link className="btn-primary" to="/login">
+                    Login
+                  </Link>
+                  <Link className="btn-primary" to="/registration">
+                    Registration
+                  </Link>
+                </>
+              ) : (
+                <button className="btn-primary" onClick={logout}>
+                  Logout
+                </button>
+              )}
+              <h4>{authState.username}</h4>
+            </div>
+          </nav>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/createpost" element={<CreatePost />} />

@@ -1,8 +1,8 @@
 import React from "react";
 import axios from "axios";
-import "./Home.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AiFillLike } from "react-icons/ai";
 
 const Home = () => {
   const [listOfPosts, setListsOfPosts] = useState([]);
@@ -43,29 +43,32 @@ const Home = () => {
     });
   }, []);
   return (
-    <div className="Home">
+    <div className="flex flex-col gap-2 m-3 h-screen items-center">
       {listOfPosts.map((value, key) => {
         return (
-          <div key={key} className="post">
-            <div className="title">{value.title}</div>
+          <div
+            key={key}
+            className="flex flex-col w-1/2 border border-opacity-5 border-purple-50 items-center justify-center text-white"
+          >
+            <div className="post-border">{value.title}</div>
             <div
-              className="postText"
+              className="post-border"
               onClick={() => {
                 navigate(`/post/${value.id}`);
               }}
             >
               {value.postText}
             </div>
-            <div className="footer">
+            <div className="flex gap-3 post-border p-0 text-purple-100">
               {value.username}
+              <label>{value.Likes.length}</label>
               <button
                 onClick={() => {
                   likePost(value.id);
                 }}
               >
-                Like
+                <AiFillLike />
               </button>
-              <label>{value.Likes.length}</label>
             </div>
           </div>
         );
